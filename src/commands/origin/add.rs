@@ -4,6 +4,7 @@ use anyhow::Result;
 use clap::Args;
 
 use crate::config::Config;
+use crate::models::{validate_git_url, ConfigError};
 use crate::utils::Terminal;
 
 /// 添加新的 git 仓库来源
@@ -32,10 +33,10 @@ impl AddOrigin {
     pub fn execute(&self, config: &Config, config_path: &std::path::Path) -> Result<()> {
         let terminal = Terminal::new();
 
-        // 验证 URL
-        if url::Url::parse(&self.url).is_err() {
+        // 验证 URL 格式
+        if let Err(ConfigError::InvalidUrl(_)) = validate_git_url(&self.url) {
             terminal.error(format!("无效的 URL: {}", self.url));
-            terminal.info("请提供有效的 HTTP/HTTPS URL。");
+            terminal.info("支持的格式: https://..., git@..., 本地路径");
             std::process::exit(1);
         }
 
@@ -46,15 +47,12 @@ impl AddOrigin {
             url_path.split('/').last().unwrap_or("origin").to_string()
         });
 
-        // 检查来源是否已存在
-        if config.origins.contains_key(&name) {
+        // 添加来源（带验证）
+        let mut config = config.clone();
+        if let Err(ConfigError::OriginAlreadyExists(_)) = config.add_origin(name.clone(), self.url.clone(), self.priority) {
             terminal.error(format!("来源 '{}' 已存在。请使用其他名称或先移除它。", name));
             std::process::exit(1);
         }
-
-        // 添加来源
-        let mut config = config.clone();
-        config.add_origin(name.clone(), self.url.clone(), self.priority);
 
         // 保存配置
         config.save(config_path)?;

@@ -5,4 +5,4 @@ mod origin;
 mod config;
 
 pub use origin::Origin;
-pub use config::Config;
+pub use config::{Config, ConfigError, validate_git_url};

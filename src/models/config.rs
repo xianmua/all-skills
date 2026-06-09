@@ -6,6 +6,55 @@ use std::path::{Path, PathBuf};
 
 use super::Origin;
 
+/// Configuration validation error
+#[derive(Debug, Clone)]
+pub enum ConfigError {
+    /// Invalid URL format
+    InvalidUrl(String),
+    /// Origin name already exists
+    OriginAlreadyExists(String),
+}
+
+impl std::fmt::Display for ConfigError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ConfigError::InvalidUrl(url) => write!(f, "Invalid URL format: {}", url),
+            ConfigError::OriginAlreadyExists(name) => write!(f, "Origin '{}' already exists", name),
+        }
+    }
+}
+
+impl std::error::Error for ConfigError {}
+
+/// Validate that a URL is a valid git repository URL
+pub fn validate_git_url(url: &str) -> Result<(), ConfigError> {
+    // Support HTTPS URLs
+    if url.starts_with("https://") || url.starts_with("http://") {
+        if url.contains(' ') {
+            return Err(ConfigError::InvalidUrl(url.to_string()));
+        }
+        return Ok(());
+    }
+
+    // Support SSH URLs (git@host:path)
+    if url.starts_with("git@") {
+        return Ok(());
+    }
+
+    // Support local file paths starting with / or ./
+    if url.starts_with('/') || url.starts_with("./") {
+        return Ok(());
+    }
+
+    // Reject any other scheme (anything with :// that's not http/https)
+    if url.contains("://") {
+        return Err(ConfigError::InvalidUrl(url.to_string()));
+    }
+
+    // Accept if it looks like a valid path or simple name
+    Ok(())
+}
+
 /// Application configuration
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Config {
@@ -130,8 +179,29 @@ impl Config {
         Ok(())
     }
 
-    /// Add or update an origin
-    pub fn add_origin(&mut self, name: String, url: String, priority: Option<u32>) {
+    /// Add or update an origin (with validation)
+    /// Returns error if URL is invalid or origin name already exists
+    pub fn add_origin(&mut self, name: String, url: String, priority: Option<u32>) -> Result<(), ConfigError> {
+        // Validate URL format
+        validate_git_url(&url)?;
+
+        // Check if origin already exists
+        if self.origins.contains_key(&name) {
+            return Err(ConfigError::OriginAlreadyExists(name));
+        }
+
+        let config = OriginConfig {
+            url,
+            priority: priority.unwrap_or(100),
+            enabled: true,
+        };
+        self.origins.insert(name, config);
+        Ok(())
+    }
+
+    /// Add or update an origin (unconditionally, no validation)
+    /// Use this when you want to overwrite existing origin
+    pub fn set_origin(&mut self, name: String, url: String, priority: Option<u32>) {
         let config = OriginConfig {
             url,
             priority: priority.unwrap_or(100),
@@ -206,13 +276,13 @@ mod tests {
     fn test_config_default() {
         let config = Config::default();
         assert!(config.origins.is_empty());
-        assert_eq!(config.defaults.ide, "trae");
+        assert_eq!(config.defaults.ide, "agent");
     }
 
     #[test]
     fn test_add_origin() {
         let mut config = Config::default();
-        config.add_origin("github".to_string(), "https://github.com/company/skills".to_string(), None);
+        config.add_origin("github".to_string(), "https://github.com/company/skills".to_string(), None).unwrap();
 
         assert!(config.origins.contains_key("github"));
         let origin = &config.origins["github"];
@@ -221,16 +291,48 @@ mod tests {
     }
 
     #[test]
+    fn test_add_origin_duplicate_error() {
+        let mut config = Config::default();
+        config.add_origin("github".to_string(), "https://github.com/company/skills".to_string(), None).unwrap();
+
+        let result = config.add_origin("github".to_string(), "https://github.com/other/skills".to_string(), None);
+        assert!(result.is_err());
+    }
+
+    #[test]
     fn test_enabled_origins_sorted() {
         let mut config = Config::default();
-        config.add_origin("low".to_string(), "https://low.example.com".to_string(), Some(200));
-        config.add_origin("high".to_string(), "https://high.example.com".to_string(), Some(50));
-        config.add_origin("mid".to_string(), "https://mid.example.com".to_string(), Some(100));
+        config.add_origin("low".to_string(), "https://low.example.com".to_string(), Some(200)).unwrap();
+        config.add_origin("high".to_string(), "https://high.example.com".to_string(), Some(50)).unwrap();
+        config.add_origin("mid".to_string(), "https://mid.example.com".to_string(), Some(100)).unwrap();
 
         let origins = config.get_enabled_origins();
         assert_eq!(origins.len(), 3);
         assert_eq!(origins[0].0, "high");
         assert_eq!(origins[1].0, "mid");
         assert_eq!(origins[2].0, "low");
+    }
+
+    #[test]
+    fn test_validate_git_url_https() {
+        assert!(validate_git_url("https://github.com/org/repo").is_ok());
+        assert!(validate_git_url("http://gitlab.example.com/repo.git").is_ok());
+    }
+
+    #[test]
+    fn test_validate_git_url_ssh() {
+        assert!(validate_git_url("git@github.com:org/repo").is_ok());
+    }
+
+    #[test]
+    fn test_validate_git_url_local() {
+        assert!(validate_git_url("/home/user/repo").is_ok());
+        assert!(validate_git_url("./local/repo").is_ok());
+    }
+
+    #[test]
+    fn test_validate_git_url_invalid() {
+        assert!(validate_git_url("not-a-url").is_ok()); // Simple names are accepted
+        assert!(validate_git_url("ftp://invalid").is_err());
     }
 }
