@@ -1,6 +1,6 @@
 ## Context
 
-当前 openspec 等 skill 工具没有统一的包管理机制，用户需要手动克隆仓库、复制文件。`yc-skills` 将成为一个类似 npm/yarn 的 CLI 工具，用于管理 skill 包的安装、更新和卸载。
+当前 openspec 等 skill 工具没有统一的包管理机制，用户需要手动克隆仓库、复制文件。`all-skills` 将成为一个类似 npm/yarn 的 CLI 工具，用于管理 skill 包的安装、更新和卸载。
 
 参考 openspec 的目录结构：`.trae/skills/<skill-name>/`，每个 skill 下有 `skill.yaml` 或 `manifest.json` 描述 skill 元信息。
 
@@ -32,7 +32,7 @@
 - Node.js/TypeScript：需要 Node 环境，分发不便
 - Python：启动慢，依赖管理复杂
 
-### 2. 配置文件存储在 `~/.yc-skills/config.toml`
+### 2. 配置文件存储在 `~/.all-skills/config.toml`
 
 **决定：** 使用 TOML 格式存储配置
 
@@ -45,7 +45,7 @@
 ```toml
 [origins]
 gitlab = "https://gitlab.internal.company.com/skills"
-github = "https://github.com/company/skills"
+github = "https://github.com/xianmua/skills"
 gitee = "https://gitee.com/company/skills"
 
 [defaults]
@@ -87,14 +87,14 @@ ide = "trae"  # 默认 IDE 类型
 ### 5. CLI 命令设计
 
 ```
-yc-skills install <name> [--trae|--clion]   # 安装 skill
-yc-skills uninstall <name>                    # 卸载 skill
-yc-skills update <name>                       # 更新 skill
-yc-skills search <keyword>                    # 搜索 skill
-yc-skills list                               # 列出已安装的 skill
-yc-skills add-origin <url> [--name <name>]   # 添加仓库来源
-yc-skills list-origins                       # 列出配置的来源
-yc-skills remove-origin <name>               # 移除仓库来源
+all-skills install <name> [--trae|--clion]   # 安装 skill
+all-skills uninstall <name>                    # 卸载 skill
+all-skills update <name>                       # 更新 skill
+all-skills search <keyword>                    # 搜索 skill
+all-skills list                               # 列出已安装的 skill
+all-skills add-origin <url> [--name <name>]   # 添加仓库来源
+all-skills list-origins                       # 列出配置的来源
+all-skills remove-origin <name>               # 移除仓库来源
 ```
 
 ## Risks / Trade-offs

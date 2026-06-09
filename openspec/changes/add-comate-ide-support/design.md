@@ -1,6 +1,6 @@
 ## Context
 
-yc-skills CLI 当前支持 `--trae` 和 `--clion` 两个 IDE 选项，用户需要在 Comate IDE 环境下使用相同的方式安装 skills。
+all-skills CLI 当前支持 `--trae` 和 `--clion` 两个 IDE 选项，用户需要在 Comate IDE 环境下使用相同的方式安装 skills。
 
 现有代码结构：
 - `install --trae` → `.trae/skills/<name>/`

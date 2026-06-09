@@ -1,13 +1,13 @@
 ## Why
 
-当前 `yc-skills` 是纯 Rust CLI 工具，只能通过 cargo编译安装。将其转换为 WebAssembly (WASM) 模块并发布到 npm，可以让 JavaScript/TypeScript开发者无需安装 Rust 工具链即可使用该工具，同时支持在浏览器环境中运行。
+当前 `all-skills` 是纯 Rust CLI 工具，只能通过 cargo编译安装。将其转换为 WebAssembly (WASM) 模块并发布到 npm，可以让 JavaScript/TypeScript开发者无需安装 Rust 工具链即可使用该工具，同时支持在浏览器环境中运行。
 
 ## What Changes
 
 - 添加 `wasm-bindgen` 依赖，将核心逻辑编译为 WASM 模块
 - 创建 npm兼容的 JavaScript/TypeScript wrapper
 - 配置 wasm-pack 构建流程，生成 ESM 和 CJS 双格式
-- 发布到 npm，支持 `@your-scope/yc-skills` 或类似命名空间
+- 发布到 npm，支持 `@your-scope/all-skills` 或类似命名空间
 - 保留原有 CLI 功能作为可选功能
 
 ## Capabilities

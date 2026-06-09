@@ -12,6 +12,36 @@ dependencies = [
 ]
 
 [[package]]
+name = "all-skills"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "atty",
+ "clap",
+ "clap_complete",
+ "colored",
+ "console",
+ "dialoguer",
+ "dirs",
+ "git2",
+ "indicatif",
+ "mockall",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_yaml",
+ "tempfile",
+ "thiserror",
+ "tokio",
+ "toml",
+ "tracing",
+ "tracing-subscriber",
+ "url",
+ "wiremock",
+]
+
+[[package]]
 name = "anstream"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2524,36 +2554,6 @@ name = "writeable"
 version = "0.6.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1ffae5123b2d3fc086436f8834ae3ab053a283cfac8fe0a0b8eaae044768a4c4"
-
-[[package]]
-name = "yc-skills"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "async-trait",
- "atty",
- "clap",
- "clap_complete",
- "colored",
- "console",
- "dialoguer",
- "dirs",
- "git2",
- "indicatif",
- "mockall",
- "reqwest",
- "serde",
- "serde_json",
- "serde_yaml",
- "tempfile",
- "thiserror",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "url",
- "wiremock",
-]
 
 [[package]]
 name = "yoke"

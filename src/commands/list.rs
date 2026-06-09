@@ -73,7 +73,7 @@ impl List {
 
         if skills.is_empty() {
             terminal.info("当前目录下未安装任何 skills。");
-            terminal.info("使用 'yc-skills install <name>' 安装 skill。");
+            terminal.info("使用 'all-skills install <name>' 安装 skill。");
             return Ok(());
         }
 

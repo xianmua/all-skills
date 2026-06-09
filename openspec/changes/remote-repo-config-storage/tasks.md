@@ -19,4 +19,4 @@
 
 - [x] 4.1 手动测试 add-origin 命令
 - [x] 4.2 手动测试 list-origins 命令
-- [x] 4.3 验证配置文件正确写入 `~/.yc-skills/config.toml`
+- [x] 4.3 验证配置文件正确写入 `~/.all-skills/config.toml`

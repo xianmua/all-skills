@@ -134,7 +134,7 @@ impl Config {
     pub fn default_path() -> PathBuf {
         dirs::home_dir()
             .unwrap_or_else(|| PathBuf::from("."))
-            .join(".yc-skills")
+            .join(".all-skills")
             .join("config.toml")
     }
 
@@ -143,7 +143,7 @@ impl Config {
     pub fn default_dir() -> PathBuf {
         dirs::home_dir()
             .unwrap_or_else(|| PathBuf::from("."))
-            .join(".yc-skills")
+            .join(".all-skills")
     }
 
     /// Load configuration from file
@@ -282,18 +282,18 @@ mod tests {
     #[test]
     fn test_add_origin() {
         let mut config = Config::default();
-        config.add_origin("github".to_string(), "https://github.com/company/skills".to_string(), None).unwrap();
+        config.add_origin("github".to_string(), "https://github.com/xianmua/skills".to_string(), None).unwrap();
 
         assert!(config.origins.contains_key("github"));
         let origin = &config.origins["github"];
-        assert_eq!(origin.url, "https://github.com/company/skills");
+        assert_eq!(origin.url, "https://github.com/xianmua/skills");
         assert_eq!(origin.priority, 100);
     }
 
     #[test]
     fn test_add_origin_duplicate_error() {
         let mut config = Config::default();
-        config.add_origin("github".to_string(), "https://github.com/company/skills".to_string(), None).unwrap();
+        config.add_origin("github".to_string(), "https://github.com/xianmua/skills".to_string(), None).unwrap();
 
         let result = config.add_origin("github".to_string(), "https://github.com/other/skills".to_string(), None);
         assert!(result.is_err());

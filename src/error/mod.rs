@@ -1,4 +1,4 @@
-//! Error types for yc-skills
+//! Error types for all-skills
 
 use thiserror::Error;
 use std::path::PathBuf;
@@ -7,7 +7,7 @@ use std::path::PathBuf;
 #[allow(dead_code)]
 pub type Result<T> = std::result::Result<T, Error>;
 
-/// All possible errors in yc-skills
+/// All possible errors in all-skills
 #[allow(dead_code)]
 #[derive(Error, Debug)]
 pub enum Error {

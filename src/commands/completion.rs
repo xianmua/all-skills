@@ -58,13 +58,13 @@ impl Completion {
         if let Some(ref output_path) = self.output {
             let file = std::fs::File::create(output_path)?;
             let mut buf = io::BufWriter::new(file);
-            generate(shell, &mut cmd, "yc-skills", &mut buf);
+            generate(shell, &mut cmd, "all-skills", &mut buf);
             terminal.success(format!(
                 "补全脚本已写入 {:?}",
                 output_path
             ));
         } else {
-            generate(shell, &mut cmd, "yc-skills", &mut io::stdout());
+            generate(shell, &mut cmd, "all-skills", &mut io::stdout());
         }
 
         Ok(())

@@ -4,7 +4,7 @@
 
 ## What Changes
 
-- 创建 `yc-skills` CLI 工具（Rust 实现），提供跨平台的 skill 包管理能力
+- 创建 `all-skills` CLI 工具（Rust 实现），提供跨平台的 skill 包管理能力
 - 支持从企业 GitLab/GitHub/Gitee 等仓库查询和安装 skill
 - 支持按 IDE 类型（如 `--trae`）安装到对应目录结构
 - 支持 skill 的卸载和更新操作
@@ -22,7 +22,7 @@
 
 ## Impact
 
-- 新增 Rust 项目：`yc-skills`
+- 新增 Rust 项目：`all-skills`
 - 新增 CLI 命令：`install`、`uninstall`、`update`、`search`、`add-origin`、`list-origins`、`remove-origin`
-- 配置文件：`~/.yc-skills/config.toml`（存储仓库来源配置）
+- 配置文件：`~/.all-skills/config.toml`（存储仓库来源配置）
 - 安装目录：`.trae/skills/`（参考 openspec 目录结构）

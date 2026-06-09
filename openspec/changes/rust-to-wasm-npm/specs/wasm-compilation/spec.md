@@ -17,11 +17,11 @@ The system SHALL compile the Rust core logic into a WebAssembly (WASM) module us
 The generated WASM module SHALL be callable from Node.js using CommonJS and ES Modules.
 
 #### Scenario: CJS import works
-- **WHEN** Node.js application uses `require('@scope/yc-skills-wasm')`
+- **WHEN** Node.js application uses `require('@scope/all-skills-wasm')`
 - **THEN** the WASM module loads successfully and exports expected functions
 
 #### Scenario: ESM import works
-- **WHEN** Node.js application uses `import('@scope/yc-skills-wasm')`
+- **WHEN** Node.js application uses `import('@scope/all-skills-wasm')`
 - **THEN** the WASM module loads successfully and exports expected functions
 
 ### Requirement: Browser environment support

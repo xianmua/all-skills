@@ -2,7 +2,7 @@
 
 - [x] 1.1 清理 WASM 相关配置
 - [x] 1.2 创建 package.json (npm CLI 包配置)
-- [x] 1.3 创建 bin/yc-skills.js (跨平台 wrapper)
+- [x] 1.3 创建 bin/all-skills.js (跨平台 wrapper)
 
 ## 2. 构建与发布
 
@@ -14,4 +14,4 @@
 ## 3.验证
 
 - [ ] 3.1 测试 npx @yc/skills-wasm --version
-- [ ] 3.2 测试 npm install 后 yc-skills 命令可用
+- [ ] 3.2 测试 npm install 后 all-skills 命令可用

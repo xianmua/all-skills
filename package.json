@@ -1,13 +1,13 @@
 {
-  "name": "yc-skills",
-  "version": "0.1.5",
+  "name": "all-skills",
+  "version": "0.2.0",
   "description": "CLI tool for managing skill packages from git repositories",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/company/yc-skills"
+    "url": "https://github.com/xianmua/all-skills.git"
   },
-  "homepage": "https://github.com/company/yc-skills#readme",
+  "homepage": "https://github.com/xianmua/all-skills.git#readme",
   "author": "Your Company",
   "keywords": [
     "cli",
@@ -20,12 +20,12 @@
   },
   "preferGlobal": true,
   "bin": {
-    "yc-skills": "./bin/yc-skills.js"
+    "all-skills": "./bin/all-skills.js"
   },
   "files": [
     "bin"
   ],
   "scripts": {
-    "postinstall": "node ./bin/yc-skills.js --version || true"
+    "postinstall": "node ./bin/all-skills.js --version || true"
   }
 }

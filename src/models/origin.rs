@@ -65,9 +65,9 @@ mod tests {
 
     #[test]
     fn test_origin_creation() {
-        let origin = Origin::new("github".to_string(), "https://github.com/company/skills".to_string());
+        let origin = Origin::new("github".to_string(), "https://github.com/xianmua/skills".to_string());
         assert_eq!(origin.name, "github");
-        assert_eq!(origin.url, "https://github.com/company/skills");
+        assert_eq!(origin.url, "https://github.com/xianmua/skills");
         assert!(origin.enabled);
         assert_eq!(origin.priority, 100);
     }
@@ -83,7 +83,7 @@ mod tests {
 
     #[test]
     fn test_clone_url() {
-        let origin = Origin::new("test".to_string(), "https://github.com/company/skills.git".to_string());
-        assert_eq!(origin.clone_url(), "https://github.com/company/skills");
+        let origin = Origin::new("test".to_string(), "https://github.com/xianmua/skills.git".to_string());
+        assert_eq!(origin.clone_url(), "https://github.com/xianmua/skills");
     }
 }

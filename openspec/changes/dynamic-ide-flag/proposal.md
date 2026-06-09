@@ -5,8 +5,8 @@
 ## What Changes
 
 - 将固定的 `--trae`、`--clion`、`--comate` 参数改为动态 `--<ide-name>` 参数
-- 支持 `yc-skills install fmt --trae` → `.trae/skills/fmt`
-- 支持 `yc-skills install fmt --comate` → `.comate/skills/fmt`
+- 支持 `all-skills install fmt --trae` → `.trae/skills/fmt`
+- 支持 `all-skills install fmt --comate` → `.comate/skills/fmt`
 - 支持未来任意 IDE，无需修改代码
 
 ## Capabilities

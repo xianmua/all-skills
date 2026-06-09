@@ -1,6 +1,6 @@
 ## Context
 
-`yc-skills` 是一个 Rust 编写的 CLI 工具，用于管理 skill 包。当前的安装方式需要用户具备 Rust 工具链（cargo）。为了扩大用户群体，特别是前端和 Node.js 开发者生态，需要将其打包为 npm 包发布。
+`all-skills` 是一个 Rust 编写的 CLI 工具，用于管理 skill 包。当前的安装方式需要用户具备 Rust 工具链（cargo）。为了扩大用户群体，特别是前端和 Node.js 开发者生态，需要将其打包为 npm 包发布。
 
 ## Goals / Non-Goals
 
@@ -41,7 +41,7 @@
 ### 3. 包结构
 
 ```
-yc-skills-wasm/
+all-skills-wasm/
 ├── dist/
 │   ├── index.js        # CJS
 │   ├── index.mjs       # ESM

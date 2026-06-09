@@ -1,6 +1,6 @@
 ## Why
 
-yc-skills CLI 工具当前支持 Trae IDE 的安装目录 `.trae/skills`，需要扩展支持 Comate IDE，使用 `.comate/skills` 目录结构，保持与其他 IDE 安装路径的一致性。
+all-skills CLI 工具当前支持 Trae IDE 的安装目录 `.trae/skills`，需要扩展支持 Comate IDE，使用 `.comate/skills` 目录结构，保持与其他 IDE 安装路径的一致性。
 
 ## What Changes
 

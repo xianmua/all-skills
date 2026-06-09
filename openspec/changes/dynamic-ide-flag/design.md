@@ -25,12 +25,12 @@
 
 **方案 1:** 使用 `--ide <name>` 参数（显式）
 ```bash
-yc-skills install fmt --ide trae
+all-skills install fmt --ide trae
 ```
 
 **方案 2:** 使用动态 `--xxx` 格式（用户期望）
 ```bash
-yc-skills install fmt --trae
+all-skills install fmt --trae
 ```
 
 **决定:** 采用方案 2，使用 Clap 的 `raw(true)` 和自定义解析

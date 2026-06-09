@@ -1,8 +1,8 @@
 ## Context
 
-`yc-skills` 需要从多个 git 仓库（origins）获取 skill 包。用户通过 `add-origin` 命令添加新的仓库来源，这些配置需要持久化存储到本地文件。
+`all-skills` 需要从多个 git 仓库（origins）获取 skill 包。用户通过 `add-origin` 命令添加新的仓库来源，这些配置需要持久化存储到本地文件。
 
-当前实现已经将配置存储在 `~/.yc-skills/config.toml`，但需要确保：
+当前实现已经将配置存储在 `~/.all-skills/config.toml`，但需要确保：
 1. 配置文件路径跨平台兼容（Windows/macOS/Linux）
 2. 配置读写操作原子性（避免写入时出错导致配置损坏）
 3. 配置变更能被正确检测和保存
@@ -10,7 +10,7 @@
 ## Goals / Non-Goals
 
 **Goals:**
-- 配置持久化到 `~/.yc-skills/config.toml`
+- 配置持久化到 `~/.all-skills/config.toml`
 - 支持配置的增删改查操作
 - 提供配置验证机制
 - 支持默认配置自动生成
@@ -27,7 +27,7 @@
 **选择**: 使用 `dirs` crate 获取用户 home 目录
 **原因**:
 - `dirs` crate 提供跨平台统一的目录获取接口
-- `~/.yc-skills/` 是 Linux/macOS 的标准约定，Windows 下也兼容
+- `~/.all-skills/` 是 Linux/macOS 的标准约定，Windows 下也兼容
 - 避免使用环境变量（如 `$HOME`）可能带来的兼容性问题
 
 ### 2. 配置文件格式
@@ -59,6 +59,6 @@
 
 ## Open Questions
 
-- [已解决] 配置文件路径: `~/.yc-skills/config.toml`
+- [已解决] 配置文件路径: `~/.all-skills/config.toml`
 - [已解决] 默认 origins: 保留 GitLab 内部源作为默认
 - [待定] 是否需要配置迁移机制（未来版本升级时）

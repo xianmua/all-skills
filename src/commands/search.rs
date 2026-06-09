@@ -37,7 +37,7 @@ impl Search {
         terminal.info(format!("正在来源中搜索 '{}'...", self.keyword));
 
         if config.origins.is_empty() {
-            terminal.warn("未配置任何来源。请使用 'yc-skills add-origin <url>' 添加来源。");
+            terminal.warn("未配置任何来源。请使用 'all-skills add-origin <url>' 添加来源。");
             return Ok(());
         }
 

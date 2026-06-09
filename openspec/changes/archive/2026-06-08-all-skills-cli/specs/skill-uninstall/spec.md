@@ -4,12 +4,12 @@
 The CLI SHALL allow users to uninstall a previously installed skill by removing its directory and cleaning up related files.
 
 #### Scenario: Uninstall existing skill
-- **WHEN** user executes `yc-skills uninstall fmt`
+- **WHEN** user executes `all-skills uninstall fmt`
 - **THEN** the CLI removes `<current-dir>/.trae/skills/fmt/` directory
 - **AND** displays a success message
 
 #### Scenario: Uninstall non-installed skill
-- **WHEN** user executes `yc-skills uninstall nonexistent`
+- **WHEN** user executes `all-skills uninstall nonexistent`
 - **AND** the skill is not installed in any search path
 - **THEN** the CLI displays an error message indicating the skill was not found
 
@@ -17,12 +17,12 @@ The CLI SHALL allow users to uninstall a previously installed skill by removing 
 The CLI SHALL prompt for confirmation before removing a skill unless `--force` flag is provided.
 
 #### Scenario: Uninstall without force flag
-- **WHEN** user executes `yc-skills uninstall fmt`
+- **WHEN** user executes `all-skills uninstall fmt`
 - **THEN** the CLI prompts for confirmation
 - **AND** waits for user input before proceeding
 
 #### Scenario: Uninstall with force flag
-- **WHEN** user executes `yc-skills uninstall fmt --force`
+- **WHEN** user executes `all-skills uninstall fmt --force`
 - **THEN** the CLI removes the skill directory immediately without confirmation
 
 ### Requirement: Clean up skill metadata

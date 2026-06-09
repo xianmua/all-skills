@@ -1,4 +1,4 @@
-//! Data models for yc-skills
+//! Data models for all-skills
 
 mod skill;
 mod origin;

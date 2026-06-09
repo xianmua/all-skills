@@ -1,6 +1,6 @@
 ## Why
 
-当用户使用 `yc-skills add-origin` 添加远程仓库时，需要将配置持久化保存。目前配置存储在用户系统目录 `~/.yc-skills/config.toml` 中，但需要确保配置的读写逻辑清晰、可测试，并且支持多平台。
+当用户使用 `all-skills add-origin` 添加远程仓库时，需要将配置持久化保存。目前配置存储在用户系统目录 `~/.all-skills/config.toml` 中，但需要确保配置的读写逻辑清晰、可测试，并且支持多平台。
 
 ## What Changes
 
@@ -26,5 +26,5 @@
 
 - **受影响模块**: `src/models/config.rs`, `src/config/mod.rs`
 - **新增依赖**: 无
-- **配置文件**: `~/.yc-skills/config.toml`
+- **配置文件**: `~/.all-skills/config.toml`
 - **影响范围**: 所有需要读写配置的 CLI 命令（add-origin, list-origins, install 等）

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * yc-skills CLI wrapper
- * Cross-platform wrapper for yc-skills Rust binary
+ * all-skills CLI wrapper
+ * Cross-platform wrapper for all-skills Rust binary
  */
 
 const { spawn } = require('child_process');
@@ -36,13 +36,13 @@ function getBinaryInfo() {
   }
 
   // Check if binary exists locally (development mode)
-  const localBinary = path.join(__dirname, '..', 'target', 'release', 'yc-skills.exe');
+  const localBinary = path.join(__dirname, '..', 'target', 'release', 'all-skills.exe');
   if (fs.existsSync(localBinary)) {
     return { path: localBinary, isLocal: true };
   }
 
   // Check for non-.exe on non-windows
-  const localBinaryNoExe = path.join(__dirname, '..', 'target', 'release', 'yc-skills');
+  const localBinaryNoExe = path.join(__dirname, '..', 'target', 'release', 'all-skills');
   if (fs.existsSync(localBinaryNoExe)) {
     return { path: localBinaryNoExe, isLocal: true };
   }
@@ -50,8 +50,8 @@ function getBinaryInfo() {
   // For production, you would download from GitHub Releases here
   // Example:
   // const version = packageJson.version;
-  // const downloadUrl = `https://github.com/company/yc-skills/releases/download/v${version}/yc-skills-${platform}.zip`;
-  // const binaryPath = path.join(os.tmpdir(), `yc-skills-${platform}`);
+  // const downloadUrl = `https://github.com/xianmua/all-skills/releases/download/v${version}/all-skills-${platform}.zip`;
+  // const binaryPath = path.join(os.tmpdir(), `all-skills-${platform}`);
 
   console.error('Binary not found. Please build with: cargo build --release');
   console.error('Or download from GitHub Releases');
