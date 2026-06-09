@@ -1,1 +1,10 @@
 /target
+pkg/
+pkg-web/
+dist/
+*.exe
+*.msi
+.DS_Store
+.vscode/
+.idea/
+*.log
