@@ -1,5 +1,5 @@
 {
-  "name": "all-skills",
+  "name": "yc-skills",
   "version": "0.1.5",
   "description": "CLI tool for managing skill packages from git repositories",
   "license": "MIT",
@@ -20,12 +20,12 @@
   },
   "preferGlobal": true,
   "bin": {
-    "skills": "./bin/skills.js"
+    "yc-skills": "./bin/yc-skills.js"
   },
   "files": [
     "bin"
   ],
   "scripts": {
-    "postinstall": "node ./bin/skills.js --version || true"
+    "postinstall": "node ./bin/yc-skills.js --version || true"
   }
 }

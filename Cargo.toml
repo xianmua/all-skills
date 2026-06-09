@@ -9,7 +9,7 @@ authors = ["Your Company"]
 readme = "README.md"
 
 [[bin]]
-name = "skills"
+name = "yc-skills"
 path = "src/main.rs"
 
 [dependencies]

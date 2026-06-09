@@ -1,4 +1,4 @@
-# all-skills
+# yc-skills
 
 CLI tool for managing skill packages from git repositories.
 
@@ -7,13 +7,13 @@ CLI tool for managing skill packages from git repositories.
 ### Via npm (recommended)
 
 ```bash
-npm install -g all-skills
+npm install -g yc-skills
 ```
 
 ### Via npx (without installation)
 
 ```bash
-npx all-skills --version
+npx yc-skills --version
 ```
 
 ## Usage

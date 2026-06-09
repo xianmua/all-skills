@@ -36,13 +36,13 @@ function getBinaryInfo() {
   }
 
   // Check if binary exists locally (development mode)
-  const localBinary = path.join(__dirname, '..', 'target', 'release', 'skills.exe');
+  const localBinary = path.join(__dirname, '..', 'target', 'release', 'yc-skills.exe');
   if (fs.existsSync(localBinary)) {
     return { path: localBinary, isLocal: true };
   }
 
   // Check for non-.exe on non-windows
-  const localBinaryNoExe = path.join(__dirname, '..', 'target', 'release', 'skills');
+  const localBinaryNoExe = path.join(__dirname, '..', 'target', 'release', 'yc-skills');
   if (fs.existsSync(localBinaryNoExe)) {
     return { path: localBinaryNoExe, isLocal: true };
   }
