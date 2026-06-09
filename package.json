@@ -1,0 +1,31 @@
+{
+  "name": "all-skills",
+  "version": "0.1.5",
+  "description": "CLI tool for managing skill packages from git repositories",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/company/yc-skills"
+  },
+  "homepage": "https://github.com/company/yc-skills#readme",
+  "author": "Your Company",
+  "keywords": [
+    "cli",
+    "skills",
+    "trae",
+    "clion"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "preferGlobal": true,
+  "bin": {
+    "skills": "./bin/skills.js"
+  },
+  "files": [
+    "bin"
+  ],
+  "scripts": {
+    "postinstall": "node ./bin/skills.js --version || true"
+  }
+}

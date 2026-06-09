@@ -1,0 +1,17 @@
+[origins.github]
+url = "https://github.com/example-org/skills"
+priority = 100
+enabled = true
+
+[origins.gitlab]
+url = "https://gitlab.example.com/skills"
+priority = 50
+enabled = true
+
+[origins.gitee]
+url = "https://gitee.com/example-org/skills"
+priority = 150
+enabled = false  # Disabled by default
+
+[defaults]
+ide = "trae"

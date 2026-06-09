@@ -1,0 +1,20 @@
+# Keep source files out of npm package
+src/
+Cargo.toml
+Cargo.lock
+*.rs
+rustfmt.toml
+target/
+pkg/
+pkg-web/
+dist/
+.git/
+.github/
+tests/
+openspec/
+*.exe
+
+# Keep config files
+!package.json
+!README.md
+!LICENSE
