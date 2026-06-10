@@ -30,7 +30,7 @@ impl Origins {
 
         if config.origins.is_empty() {
             terminal.info("未配置任何来源。");
-            terminal.info("使用 'all-skills add-origin <url>' 添加 git 仓库。");
+            terminal.info("使用 'skills add-origin <url>' 添加 git 仓库。");
             return Ok(());
         }
 

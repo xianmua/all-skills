@@ -134,7 +134,7 @@ impl Config {
     pub fn default_path() -> PathBuf {
         dirs::home_dir()
             .unwrap_or_else(|| PathBuf::from("."))
-            .join(".all-skills")
+            .join(".skills")
             .join("config.toml")
     }
 
@@ -143,7 +143,7 @@ impl Config {
     pub fn default_dir() -> PathBuf {
         dirs::home_dir()
             .unwrap_or_else(|| PathBuf::from("."))
-            .join(".all-skills")
+            .join(".skills")
     }
 
     /// Load configuration from file

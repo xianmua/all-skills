@@ -1,4 +1,4 @@
-//! all-skills CLI - 管理 git 仓库 skill 包的命令行工具
+//! skills CLI - 管理 git 仓库 skill 包的命令行工具
 //!
 //! 该工具允许用户从 GitHub、GitLab、Gitee 等 git 仓库安装、更新和卸载 skill 包。
 
@@ -17,7 +17,7 @@ use tracing_subscriber::{fmt, EnvFilter};
 
 use crate::config::Config;
 
-const APP_NAME: &str = "all-skills";
+const APP_NAME: &str = "skills";
 
 /// CLI 参数
 #[derive(Parser, Debug)]

@@ -35,7 +35,7 @@ impl Search {
         let git_client = GitClient::new();
 
         if config.origins.is_empty() {
-            terminal.warn("未配置任何来源。请使用 'all-skills add-origin <url>' 添加来源。");
+            terminal.warn("未配置任何来源。请使用 'skills add-origin <url>' 添加来源。");
             return Ok(());
         }
 

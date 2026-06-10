@@ -17,14 +17,32 @@ impl GitClient {
         Self { shallow: true }
     }
 
-    /// Check if a file exists in a remote repository using git ls-remote
-    pub fn remote_file_exists(&self, remote_url: &str, file_path: &str, branch: &str) -> Result<bool> {
+    /// Check if a file exists in a remote repository
+    pub fn remote_file_exists(&self, remote_url: &str, file_path: &str, _branch: &str) -> Result<bool> {
         info!("Checking if {} exists in {}", file_path, remote_url);
 
-        // Use git ls-remote to check if file exists
-        // We'll use a combination of git ls-remote and checking refs
+        // Try to use git archive to check if file exists
+        // This works for public repos without cloning
         let output = Command::new("git")
-            .args(["ls-remote", remote_url, branch])
+            .args(["archive", "--remote", remote_url, "HEAD", file_path])
+            .output();
+
+        match output {
+            Ok(o) => {
+                if o.status.success() && !o.stdout.is_empty() {
+                    return Ok(true);
+                }
+                // File might not exist, try listing the directory
+                info!("git archive failed, trying ls-remote fallback");
+            }
+            Err(_) => {
+                info!("git archive command failed");
+            }
+        }
+
+        // Fallback: just check if repo is accessible
+        let output = Command::new("git")
+            .args(["ls-remote", remote_url, "HEAD"])
             .output()
             .context("Failed to execute git ls-remote")?;
 
@@ -32,9 +50,9 @@ impl GitClient {
             return Ok(false);
         }
 
-        // Try to access the specific file using git archive
-        // Fallback: check if the repository exists at all
-        Ok(output.status.success())
+        // If repo is accessible, we'll try to install and let it fail later if skill doesn't exist
+        info!("Repository is accessible, proceeding with install");
+        Ok(true)
     }
 
     /// Clone a repository with shallow clone and sparse checkout
@@ -46,16 +64,24 @@ impl GitClient {
     ) -> Result<()> {
         info!("Cloning {} to {:?} (sparse checkout for {})", remote_url, dest_path, subdir);
 
-        // Create destination directory
-        std::fs::create_dir_all(dest_path)?;
+        // Create parent directory for the temp clone
+        let parent_dir = dest_path.parent().unwrap_or(dest_path);
+        std::fs::create_dir_all(parent_dir)?;
+
+        // Extract repo name from URL
+        let repo_name = remote_url.split('/').last().unwrap_or("repo").trim_end_matches(".git");
+        let temp_repo_path = parent_dir.join(format!("._temp_{}", repo_name));
+
+        // Remove temp dir if exists
+        if temp_repo_path.exists() {
+            std::fs::remove_dir_all(&temp_repo_path)?;
+        }
 
         // Build git clone command with sparse checkout
         let mut cmd = Command::new("git");
-        cmd.args(["clone", "--depth=1"])
-           .arg("--filter=blob:none")
-           .arg("--no-checkout")
+        cmd.args(["clone", "--depth=1", "--filter=blob:none", "--no-checkout"])
            .arg(remote_url)
-           .current_dir(dest_path.parent().unwrap_or(dest_path));
+           .arg(&temp_repo_path);
 
         debug!("Running: {:?}", cmd);
 
@@ -67,28 +93,24 @@ impl GitClient {
         }
 
         // Initialize sparse checkout
-        let repo_path = dest_path.parent().unwrap_or(dest_path).join(
-            remote_url.split('/').last().unwrap_or("repo").trim_end_matches(".git")
-        );
-
         let mut sparse_cmd = Command::new("git");
         sparse_cmd.args(["sparse-checkout", "set", subdir])
-                  .current_dir(&repo_path);
+                  .current_dir(&temp_repo_path);
 
         let output = sparse_cmd.output().context("Failed to set sparse checkout")?;
 
         if !output.status.success() {
             warn!("Sparse checkout failed, doing full clone: {}", String::from_utf8_lossy(&output.stderr));
             // Fallback to regular clone
-            std::fs::remove_dir_all(&repo_path)?;
-            self.clone_full(remote_url, dest_path.parent().unwrap_or(dest_path))?;
+            std::fs::remove_dir_all(&temp_repo_path)?;
+            self.clone_full(remote_url, parent_dir)?;
             return Ok(());
         }
 
         // Checkout the files
         let mut checkout_cmd = Command::new("git");
         checkout_cmd.args(["checkout"])
-                   .current_dir(&repo_path);
+                   .current_dir(&temp_repo_path);
 
         let output = checkout_cmd.output().context("Failed to checkout files")?;
 
@@ -97,14 +119,22 @@ impl GitClient {
         }
 
         // Move files from subdir to dest_path
-        let cloned_subdir = repo_path.join(subdir);
+        let cloned_subdir = temp_repo_path.join(subdir);
         if cloned_subdir.exists() {
-            for entry in std::fs::read_dir(&cloned_subdir)? {
-                let entry = entry?;
-                let dest = dest_path.join(entry.file_name());
-                std::fs::rename(entry.path(), dest)?;
+            // Create dest_path parent if needed
+            if let Some(parent) = dest_path.parent() {
+                std::fs::create_dir_all(parent)?;
             }
-            std::fs::remove_dir_all(&repo_path)?;
+            // If dest_path exists, remove it
+            if dest_path.exists() {
+                std::fs::remove_dir_all(dest_path)?;
+            }
+            // Move the entire subdir to dest_path
+            std::fs::rename(&cloned_subdir, dest_path)?;
+            // Clean up temp repo
+            std::fs::remove_dir_all(&temp_repo_path)?;
+        } else {
+            anyhow::bail!("Cloned subdirectory {:?} does not exist", cloned_subdir);
         }
 
         Ok(())

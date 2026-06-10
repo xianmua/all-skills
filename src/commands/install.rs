@@ -108,7 +108,7 @@ impl Install {
         if !found {
             terminal.error(format!(
                 "在所有配置的来源中都未找到 skill '{}'。\
-                请使用 'all-skills add-origin <url>' 添加来源",
+                请使用 'skills add-origin <url>' 添加来源",
                 self.skill_name
             ));
             std::process::exit(1);

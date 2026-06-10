@@ -1,2 +1,2 @@
-// Entry point for all-skills package
-require('./bin/all-skills.js');
+// Entry point for skills-new package
+require('./bin/skills.js');
