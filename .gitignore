@@ -1,4 +1,7 @@
 /target
+wasm-pkg/
+wasm-pkg/target
+wasm-pkg/dist
 pkg/
 pkg-web/
 dist/

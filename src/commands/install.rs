@@ -74,7 +74,7 @@ impl Install {
             // 尝试查找 skill
             if let Ok(true) = git_client.remote_file_exists(
                 url,
-                &format!("{}/skill.yaml", self.skill_name),
+                &format!("{}/SKILL.md", self.skill_name),
                 "HEAD",
             ) {
                 terminal.success(format!("在来源 '{}' 中找到 '{}'", origin_name, self.skill_name));

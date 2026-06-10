@@ -9,7 +9,7 @@ fn test_config_load_and_save() {
     let config_path = temp_dir.path().join("config.toml");
 
     // Create a config
-    let mut config = yc_skills::config::Config::default();
+    let mut config = all_skills::config::Config::default();
     config.add_origin(
         "github".to_string(),
         "https://github.com/test/skills".to_string(),
@@ -20,7 +20,7 @@ fn test_config_load_and_save() {
     config.save(&config_path).unwrap();
 
     // Load config
-    let loaded = yc_skills::config::Config::load(&config_path).unwrap();
+    let loaded = all_skills::config::Config::load(&config_path).unwrap();
 
     assert!(loaded.origins.contains_key("github"));
     assert_eq!(
@@ -31,7 +31,7 @@ fn test_config_load_and_save() {
 
 #[test]
 fn test_add_and_remove_origin() {
-    let mut config = yc_skills::config::Config::default();
+    let mut config = all_skills::config::Config::default();
 
     // Add origin
     config.add_origin(
@@ -54,7 +54,7 @@ fn test_add_and_remove_origin() {
 
 #[test]
 fn test_enabled_origins_sorted_by_priority() {
-    let mut config = yc_skills::config::Config::default();
+    let mut config = all_skills::config::Config::default();
 
     config.add_origin("low".to_string(), "https://low.example.com".to_string(), Some(200));
     config.add_origin("high".to_string(), "https://high.example.com".to_string(), Some(50));

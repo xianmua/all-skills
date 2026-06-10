@@ -63,7 +63,7 @@ fn extract_ide_args() -> Vec<String> {
 
         // 遇到另一个子命令，停止收集
         if arg == "uninstall" || arg == "update" || arg == "search" ||
-           arg == "list" || arg == "add-origin" || arg == "list-origins" ||
+           arg == "list" || arg == "add-origin" || arg == "origins" ||
            arg == "remove-origin" || arg == "completion" {
             break;
         }
@@ -183,7 +183,7 @@ fn main() -> Result<()> {
         commands::Commands::Search(cmd) => cmd.execute(&config),
         commands::Commands::List(cmd) => cmd.execute(&config),
         commands::Commands::AddOrigin(cmd) => cmd.execute(&config, &config_path),
-        commands::Commands::ListOrigins(cmd) => cmd.execute(&config),
+        commands::Commands::Origins(cmd) => cmd.execute(&config),
         commands::Commands::RemoveOrigin(cmd) => cmd.execute(&config, &config_path),
         commands::Commands::Completion(cmd) => cmd.execute(),
     }

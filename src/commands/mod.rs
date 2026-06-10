@@ -13,7 +13,7 @@ pub use uninstall::Uninstall;
 pub use update::Update;
 pub use search::Search;
 pub use list::List;
-pub use origin::{AddOrigin, ListOrigins, RemoveOrigin};
+pub use origin::{AddOrigin, Origins, RemoveOrigin};
 pub use completion::Completion;
 
 use clap::Subcommand;
@@ -34,7 +34,7 @@ pub enum Commands {
     /// 添加新的 git 仓库来源
     AddOrigin(AddOrigin),
     /// 列出所有配置的仓库来源
-    ListOrigins(ListOrigins),
+    Origins(Origins),
     /// 移除已配置的仓库来源
     RemoveOrigin(RemoveOrigin),
     /// 生成 shell 补全脚本

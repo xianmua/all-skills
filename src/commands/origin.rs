@@ -5,5 +5,5 @@ mod list;
 mod remove;
 
 pub use add::AddOrigin;
-pub use list::ListOrigins;
+pub use list::Origins;
 pub use remove::RemoveOrigin;

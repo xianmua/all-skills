@@ -26,7 +26,7 @@ function getPlatform() {
   return null;
 }
 
-// Get the binary path or name
+// Get the binary path
 function getBinaryInfo() {
   const platform = getPlatform();
 
@@ -35,32 +35,37 @@ function getBinaryInfo() {
     process.exit(1);
   }
 
-  // Check if binary exists locally (development mode)
-  const localBinary = path.join(__dirname, '..', 'target', 'release', 'all-skills.exe');
-  if (fs.existsSync(localBinary)) {
-    return { path: localBinary, isLocal: true };
+  // Check local development binary first
+  const localDevBinary = path.join(__dirname, '..', 'target', 'release', 'all-skills');
+  if (fs.existsSync(localDevBinary)) {
+    return localDevBinary;
   }
 
-  // Check for non-.exe on non-windows
-  const localBinaryNoExe = path.join(__dirname, '..', 'target', 'release', 'all-skills');
-  if (fs.existsSync(localBinaryNoExe)) {
-    return { path: localBinaryNoExe, isLocal: true };
+  // Check for .exe in development
+  const localDevExe = path.join(__dirname, '..', 'target', 'release', 'all-skills.exe');
+  if (fs.existsSync(localDevExe)) {
+    return localDevExe;
   }
 
-  // For production, you would download from GitHub Releases here
-  // Example:
-  // const version = packageJson.version;
-  // const downloadUrl = `https://github.com/xianmua/all-skills/releases/download/v${version}/all-skills-${platform}.zip`;
-  // const binaryPath = path.join(os.tmpdir(), `all-skills-${platform}`);
+  // Production: use bundled binary
+  const binaryName = platform === 'windows' ? 'all-skills.exe' : 'all-skills';
+  const bundledBinary = path.join(__dirname, binaryName);
 
-  console.error('Binary not found. Please build with: cargo build --release');
-  console.error('Or download from GitHub Releases');
+  if (fs.existsSync(bundledBinary)) {
+    // Make executable on Unix
+    if (platform !== 'windows') {
+      fs.chmodSync(bundledBinary, '755');
+    }
+    return bundledBinary;
+  }
+
+  console.error('Binary not found.');
   process.exit(1);
 }
 
 // Spawn the actual binary with all arguments
 function main() {
-  const { path: binaryPath } = getBinaryInfo();
+  const binaryPath = getBinaryInfo();
   const args = process.argv.slice(2);
 
   const child = spawn(binaryPath, args, {

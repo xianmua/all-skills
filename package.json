@@ -19,11 +19,20 @@
     "node": ">=14"
   },
   "preferGlobal": true,
+  "os": [
+    "linux",
+    "darwin",
+    "win32"
+  ],
+  "cpu": [
+    "x64"
+  ],
   "bin": {
     "all-skills": "./bin/all-skills.js"
   },
   "files": [
-    "bin"
+    "bin",
+    "index.js"
   ],
   "scripts": {
     "postinstall": "node ./bin/all-skills.js --version || true"
