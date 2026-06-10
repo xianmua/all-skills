@@ -33,7 +33,7 @@ impl Repository {
 
     /// Get the skill manifest path within this repository
     pub fn skill_manifest_path(&self, skill_name: &str) -> PathBuf {
-        self.path.join(skill_name).join("skill.yaml")
+        self.path.join(skill_name).join("SKILL.md")
     }
 
     /// Get the skill manifest JSON path within this repository

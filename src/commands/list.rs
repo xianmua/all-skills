@@ -53,10 +53,9 @@ impl List {
                                                 .unwrap_or("unknown")
                                                 .to_string();
 
-                                            // 检查是否有 skill.yaml、manifest.json 或 SKILL.md
-                                            let has_manifest = skill_path.join("skill.yaml").exists()
-                                                || skill_path.join("manifest.json").exists()
-                                                || skill_path.join("SKILL.md").exists();
+                                            // 检查是否有 SKILL.md 或 manifest.json
+                                            let has_manifest = skill_path.join("SKILL.md").exists()
+                                                || skill_path.join("manifest.json").exists();
 
                                             if has_manifest {
                                                 skills.push((skill_name, skill_path, ide_name.clone()));
@@ -73,7 +72,7 @@ impl List {
 
         if skills.is_empty() {
             terminal.info("当前目录下未安装任何 skills。");
-            terminal.info("使用 'all-skills install <name>' 安装 skill。");
+            terminal.info("使用 'skills install <name>' 安装 skill。");
             return Ok(());
         }
 

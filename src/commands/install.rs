@@ -74,7 +74,7 @@ impl Install {
             // 尝试查找 skill
             if let Ok(true) = git_client.remote_file_exists(
                 url,
-                &format!("{}/skill.yaml", self.skill_name),
+                &format!("{}/SKILL.md", self.skill_name),
                 "HEAD",
             ) {
                 terminal.success(format!("在来源 '{}' 中找到 '{}'", origin_name, self.skill_name));
@@ -108,7 +108,7 @@ impl Install {
         if !found {
             terminal.error(format!(
                 "在所有配置的来源中都未找到 skill '{}'。\
-                请使用 'all-skills add-origin <url>' 添加来源",
+                请使用 'skills add-origin <url>' 添加来源",
                 self.skill_name
             ));
             std::process::exit(1);

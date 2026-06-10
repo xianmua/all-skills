@@ -134,7 +134,7 @@ impl Config {
     pub fn default_path() -> PathBuf {
         dirs::home_dir()
             .unwrap_or_else(|| PathBuf::from("."))
-            .join(".all-skills")
+            .join(".skills")
             .join("config.toml")
     }
 
@@ -143,7 +143,7 @@ impl Config {
     pub fn default_dir() -> PathBuf {
         dirs::home_dir()
             .unwrap_or_else(|| PathBuf::from("."))
-            .join(".all-skills")
+            .join(".skills")
     }
 
     /// Load configuration from file
@@ -159,8 +159,8 @@ impl Config {
 
         // 添加默认的 skills 源
         config.add_origin(
-            "gitlab".to_string(),
-            "http://gitlab.app.yuchai.com/yc90115142/skills.git".to_string(),
+            "github".to_string(),
+            "https://github.com/xianmua/skills.git".to_string(),
             Some(100),
         );
 

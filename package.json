@@ -1,6 +1,6 @@
 {
-  "name": "all-skills",
-  "version": "0.2.0",
+  "name": "skills-new",
+  "version": "0.2.13",
   "description": "CLI tool for managing skill packages from git repositories",
   "license": "MIT",
   "repository": {
@@ -19,13 +19,22 @@
     "node": ">=14"
   },
   "preferGlobal": true,
+  "os": [
+    "linux",
+    "darwin",
+    "win32"
+  ],
+  "cpu": [
+    "x64"
+  ],
   "bin": {
-    "all-skills": "./bin/all-skills.js"
+    "skills": "./bin/skills.js"
   },
   "files": [
-    "bin"
+    "bin",
+    "index.js"
   ],
   "scripts": {
-    "postinstall": "node ./bin/all-skills.js --version || true"
+    "postinstall": "node ./bin/skills.js --version || true"
   }
 }

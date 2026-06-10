@@ -47,7 +47,7 @@ impl Skill {
     /// Get the manifest file path
     #[allow(dead_code)]
     pub fn manifest_path(&self) -> std::path::PathBuf {
-        self.install_path.join("skill.yaml")
+        self.install_path.join("SKILL.md")
     }
 
     /// Get the manifest.json path (fallback)
@@ -63,7 +63,7 @@ impl Skill {
     }
 }
 
-/// Skill manifest file (skill.yaml or manifest.json)
+/// Skill manifest file (SKILL.md or manifest.json)
 #[allow(dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SkillManifest {

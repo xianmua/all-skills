@@ -1,1 +1,13 @@
 /target
+wasm-pkg/
+wasm-pkg/target
+wasm-pkg/dist
+pkg/
+pkg-web/
+dist/
+*.exe
+*.msi
+.DS_Store
+.vscode/
+.idea/
+*.log

@@ -9,11 +9,11 @@ use crate::utils::Terminal;
 /// 列出所有配置的来源
 #[derive(Args, Debug)]
 #[command(
-    name = "list-origins",
+    name = "origins",
     about = "列出所有配置的 git 仓库来源",
     long_about = None
 )]
-pub struct ListOrigins {
+pub struct Origins {
     /// 显示详细信息
     #[arg(short, long)]
     pub verbose: bool,
@@ -23,14 +23,14 @@ pub struct ListOrigins {
     pub json: bool,
 }
 
-impl ListOrigins {
+impl Origins {
     /// 执行列出来源命令
     pub fn execute(&self, config: &Config) -> Result<()> {
         let terminal = Terminal::new();
 
         if config.origins.is_empty() {
             terminal.info("未配置任何来源。");
-            terminal.info("使用 'all-skills add-origin <url>' 添加 git 仓库。");
+            terminal.info("使用 'skills add-origin <url>' 添加 git 仓库。");
             return Ok(());
         }
 

@@ -1,4 +1,4 @@
-//! all-skills CLI - 管理 git 仓库 skill 包的命令行工具
+//! skills CLI - 管理 git 仓库 skill 包的命令行工具
 //!
 //! 该工具允许用户从 GitHub、GitLab、Gitee 等 git 仓库安装、更新和卸载 skill 包。
 
@@ -17,7 +17,7 @@ use tracing_subscriber::{fmt, EnvFilter};
 
 use crate::config::Config;
 
-const APP_NAME: &str = "all-skills";
+const APP_NAME: &str = "skills";
 
 /// CLI 参数
 #[derive(Parser, Debug)]
@@ -63,7 +63,7 @@ fn extract_ide_args() -> Vec<String> {
 
         // 遇到另一个子命令，停止收集
         if arg == "uninstall" || arg == "update" || arg == "search" ||
-           arg == "list" || arg == "add-origin" || arg == "list-origins" ||
+           arg == "list" || arg == "add-origin" || arg == "origins" ||
            arg == "remove-origin" || arg == "completion" {
             break;
         }
@@ -183,7 +183,7 @@ fn main() -> Result<()> {
         commands::Commands::Search(cmd) => cmd.execute(&config),
         commands::Commands::List(cmd) => cmd.execute(&config),
         commands::Commands::AddOrigin(cmd) => cmd.execute(&config, &config_path),
-        commands::Commands::ListOrigins(cmd) => cmd.execute(&config),
+        commands::Commands::Origins(cmd) => cmd.execute(&config),
         commands::Commands::RemoveOrigin(cmd) => cmd.execute(&config, &config_path),
         commands::Commands::Completion(cmd) => cmd.execute(),
     }
