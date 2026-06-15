@@ -7,13 +7,13 @@ CLI tool for managing skill packages from git repositories.
 ### Via npm (recommended)
 
 ```bash
-npm install -g all-skills
+npm install -g skills-new
 ```
 
 ### Via npx (without installation)
 
 ```bash
-npx all-skills --version
+npx skills-new --version
 ```
 
 ## Usage
